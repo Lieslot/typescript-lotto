@@ -1,4 +1,5 @@
-function pickUniqueNumbersInRange(start: number, end: number, count: number) {
+// start以上end未満の整数をcount個返す
+function pickUniqueNumbersInRange(start: number, end: number, count: number) : number[] {
     
     const numbers: number[] = [];
     

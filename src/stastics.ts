@@ -1,5 +1,4 @@
-import { Errors } from "./common";
-import { Lotto } from "./lotto";
+import { Lotto, Price } from "./lotto";
 import { WinningLotto } from "./winninglotto";
 
 
@@ -15,6 +14,15 @@ enum Rank {
     FOURTH, // 4個一致
     FIFTH, // 3個一致
     NONE, // ランクなし
+}
+
+const RankPrice: Record<Rank, number> = {
+    [Rank.FIRST]: 2000000000,
+    [Rank.SECOND]: 30000000,
+    [Rank.THIRD]: 1500000,
+    [Rank.FOURTH]: 50000,
+    [Rank.FIFTH]: 5000,
+    [Rank.NONE]: 0,
 }
 
 const RankCondition : {
@@ -89,4 +97,15 @@ const calculateStastics = (winningLotto: WinningLotto, lottos: Lotto[]): ScoreBo
 }
 
 
-export { calculateStastics, calculateRank, Rank };
+const calculateTotal = (stastics: ScoreBoard): number => {
+    return Object.entries(stastics).reduce((acc, [rank, count]) => acc + count * RankPrice[rank], 0);
+}
+
+const calculateProfitRate = (stastics: ScoreBoard, price: Price): string => {
+    const total = calculateTotal(stastics);
+    return  (total * 100 / price.price).toFixed(1);
+}
+
+
+
+export { calculateStastics, calculateRank, Rank, calculateProfitRate };

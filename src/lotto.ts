@@ -36,7 +36,7 @@ class Lotto {
         return this._lottoNumbers;
     }
 
-    public has(number: number) {
+    public has(number: number) : boolean {
         return this._lottoNumbers.includes(number);
     }
 
@@ -58,8 +58,12 @@ class Price {
         }
     }
 
-    public calculateIssuedCount() {
+    public calculateIssuedCount() : number {
         return this._price / 1000;
+    }
+
+    public get price() : number {
+        return this._price;
     }
 }
 
