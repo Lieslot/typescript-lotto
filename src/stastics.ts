@@ -3,9 +3,8 @@ import { WinningLotto } from "./winninglotto";
 
 
 type RankPair = {number: number, bonus: boolean}
-type ScoreBoard = {
-    [key in Rank]: number
-}
+type ScoreBoard = Record<Rank, number>;
+
 
 enum Rank {
     FIRST, // 6個一致
@@ -98,11 +97,16 @@ const calculateStastics = (winningLotto: WinningLotto, lottos: Lotto[]): ScoreBo
 
 
 const calculateTotal = (stastics: ScoreBoard): number => {
-    return Object.entries(stastics).reduce((acc, [rank, count]) => acc + count * RankPrice[rank], 0);
+    return Object.keys(RankPrice)
+        .filter(rank => rank !== String(Rank.NONE))
+        .reduce((acc, rank) => {
+            return acc + (stastics[rank as unknown as Rank] || 0) * RankPrice[rank as unknown as Rank];
+        }, 0);
 }
 
 const calculateProfitRate = (stastics: ScoreBoard, price: Price): string => {
     const total = calculateTotal(stastics);
+    console.log(`total: ${total}, price: ${price.price}`);
     return  (total * 100 / price.price).toFixed(1);
 }
 

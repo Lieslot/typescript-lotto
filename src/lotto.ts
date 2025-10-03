@@ -41,7 +41,6 @@ class Lotto {
     }
 
 }
-
 class Price {
 
     private _price: number;
@@ -68,9 +67,9 @@ class Price {
 }
 
 
-const issueLottoByPrice = (price: number) : Lotto[] => {
+const issueLottoByPrice = (price: Price) : Lotto[] => {
 
-    const issuedCount = new Price(price).calculateIssuedCount();
+    const issuedCount = price.calculateIssuedCount();
 
     const lottos: Lotto[] = [];
 
