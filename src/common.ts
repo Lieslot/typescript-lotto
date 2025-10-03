@@ -11,4 +11,12 @@ enum Errors{
     INVALID_RANK = '[ERROR] ランクが見つかりません',
 }
 
-export { Errors }
+const PRICE_UNIT = 1000;
+const LOTTO_NUMBER_RANGE = {
+    MIN: 1,
+    MAX: 45,
+};
+const LOTTO_NUMBER_COUNT = 6;
+
+
+export { Errors, PRICE_UNIT, LOTTO_NUMBER_RANGE, LOTTO_NUMBER_COUNT }

@@ -1,4 +1,4 @@
-import { Errors } from './common';
+import { Errors, LOTTO_NUMBER_COUNT, LOTTO_NUMBER_RANGE, PRICE_UNIT } from './common';
 import  { pickUniqueNumbersInRange } from './utils';
 
 
@@ -21,13 +21,13 @@ class Lotto {
     }
 
     private validateLength(lottoNumbers: number[]) {
-        if (lottoNumbers.length !== 6) {
+        if (lottoNumbers.length !== LOTTO_NUMBER_COUNT) {
             throw new Error(Errors.INVALID_LENGTH);
         }
     }
 
     private validateNumber(lottoNumbers: number[]) {
-        if (lottoNumbers.some(number => number < 1 || number > 45)) {
+        if (lottoNumbers.some(number => number < LOTTO_NUMBER_RANGE.MIN || number > LOTTO_NUMBER_RANGE.MAX)) {
             throw new Error(Errors.INVALID_NUMBER);
         }
     }
@@ -52,13 +52,13 @@ class Price {
 
     private validate(price: number) {
 
-        if (price % 1000 !== 0 || price < 1000) {
+        if (price % PRICE_UNIT !== 0 || price < PRICE_UNIT) {
             throw new Error(Errors.INVALID_PRICE);
         }
     }
 
     public calculateIssuedCount() : number {
-        return this._price / 1000;
+        return this._price / PRICE_UNIT;
     }
 
     public get price() : number {
@@ -82,7 +82,7 @@ const issueLottoByPrice = (price: Price) : Lotto[] => {
 
 
 const generateRandomLotto = () => {
-    return new Lotto(pickUniqueNumbersInRange(1, 45, 6));
+    return new Lotto(pickUniqueNumbersInRange(LOTTO_NUMBER_RANGE.MIN, LOTTO_NUMBER_RANGE.MAX, LOTTO_NUMBER_COUNT));
 }
 
 export { issueLottoByPrice, Lotto, Price };

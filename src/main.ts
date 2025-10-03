@@ -1,6 +1,6 @@
 import * as readline from "readline";
 import { issueLottoByPrice, Lotto, Price } from "./lotto";
-import { Errors } from "./common";
+import { Errors, LOTTO_NUMBER_RANGE } from "./common";
 import { WinningLotto } from "./winninglotto";
 import { calculateProfitRate, calculateStastics, Rank } from "./stastics";
 
@@ -55,7 +55,7 @@ const inputBonusNumber = async () : Promise<number> => {
     const bonusNumberInput = await ask('보너스 번호를 입력해 주세요.\n');
     const bonusNumber = parseInt(bonusNumberInput, 10);
 
-    if (isNaN(bonusNumber) || bonusNumber < 1 || bonusNumber > 45) {
+    if (isNaN(bonusNumber) || bonusNumber < LOTTO_NUMBER_RANGE.MIN || bonusNumber > LOTTO_NUMBER_RANGE.MAX) {
         throw new Error(Errors.INVALID_NUMBER);
     }
     return new Promise<number>((resolve) => {
