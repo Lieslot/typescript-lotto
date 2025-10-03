@@ -36,6 +36,10 @@ class Lotto {
         return this._lottoNumbers;
     }
 
+    public has(number: number) {
+        return this._lottoNumbers.includes(number);
+    }
+
 }
 
 class Price {
