@@ -20,6 +20,14 @@ class WinningLotto {
 
     }
 
+    public has(number: number) {
+        return this._winningLotto.has(number);
+    }
+
+    public hasBonusNumber(number: number) {
+        return this._bonusNumber === number;
+    }
+
     public get winningLotto() {
         return this._winningLotto;
     }

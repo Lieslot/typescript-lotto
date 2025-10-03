@@ -8,6 +8,7 @@ enum Errors{
     INVALID_NUMBER_FORMAT = '[ERROR] 番号が数字ではありません',
     INVALID_PRICE_FORMAT = '[ERROR] 金額が数字ではありません',
     INVALID_LENGTH_FORMAT = '[ERROR] 番号の個数が数字ではありません',
+    INVALID_RANK = '[ERROR] ランクが見つかりません',
 }
 
 export { Errors }
