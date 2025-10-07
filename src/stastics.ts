@@ -39,10 +39,14 @@ const RankCondition : {
         {condition: {number: 3, bonus: true}, rank: Rank.FIFTH},
 ]
 
-const findRank = (condition: RankPair): Rank | undefined => {
-    return RankCondition.find(
+const findRank = (condition: RankPair): Rank => {
+    const rank = RankCondition.find(
         rank => rank.condition.number === condition.number &&
         rank.condition.bonus === condition.bonus)?.rank;
+    if (rank === undefined) {
+        return Rank.NONE;
+    }
+    return rank;
 }
 
 const calculateRankCondition = (lotto: Lotto, winningLotto: WinningLotto): RankPair => {
@@ -65,13 +69,7 @@ const calculateRankCondition = (lotto: Lotto, winningLotto: WinningLotto): RankP
 
 const calculateRank = (lotto: Lotto, winningLotto: WinningLotto): Rank => {
     const rankPair = calculateRankCondition(lotto, winningLotto);
-
-    const rank = findRank(rankPair);
-    if (rank === undefined) {
-        return Rank.NONE;
-    }
-
-    return rank;
+    return findRank(rankPair);
 }
 
 
@@ -95,13 +93,16 @@ const calculateStastics = (winningLotto: WinningLotto, lottos: Lotto[]): ScoreBo
     return stastics;
 }
 
-
 const calculateTotal = (stastics: ScoreBoard): number => {
-    return Object.keys(RankPrice)
-        .filter(rank => rank !== String(Rank.NONE))
-        .reduce((acc, rank) => {
-            return acc + (stastics[rank as unknown as Rank] || 0) * RankPrice[rank as unknown as Rank];
-        }, 0);
+    let total = 0;
+    for (const rankStr in stastics) {
+        const rank = Number(rankStr) as Rank;
+        if (rank === Rank.NONE) {
+            continue;
+        }
+        total += (stastics[rank] || 0) * RankPrice[rank];
+    }
+    return total;
 }
 
 const calculateProfitRate = (stastics: ScoreBoard, price: Price): string => {

@@ -4,8 +4,11 @@ import  { pickUniqueNumbersInRange } from './utils';
 
 class Lotto {
 
-    constructor(public _lottoNumbers: number[]) {
-        this.validate(_lottoNumbers);
+    private readonly _lottoNumbers: number[];
+
+    constructor(lottoNumbers: number[]) {
+        this.validate(lottoNumbers);
+        this._lottoNumbers = lottoNumbers;
     }
 
     private validate(lottoNumbers: number[]) {
@@ -32,8 +35,8 @@ class Lotto {
         }
     }
 
-    public get lottoNumbers() {
-        return this._lottoNumbers;
+    public get lottoNumbers(): number[] {
+        return [...this._lottoNumbers];
     }
 
     public has(number: number) : boolean {
@@ -43,7 +46,7 @@ class Lotto {
 }
 class Price {
 
-    private _price: number;
+    private readonly _price: number;
 
     constructor(price: number) {
         this.validate(price);

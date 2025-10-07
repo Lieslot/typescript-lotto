@@ -37,9 +37,7 @@ const inputPrice = async () : Promise<number> => {
     if (priceInput % 1000 !== 0 || priceInput < 1000 || isNaN(priceInput)) {
         throw new Error(Errors.INVALID_PRICE);
     }
-    return new Promise<number>((resolve) => {
-        resolve(priceInput);
-    });
+    return priceInput;
 }
 
 const inputWinningLotto = async () : Promise<Lotto> => {
@@ -58,20 +56,14 @@ const inputBonusNumber = async () : Promise<number> => {
     if (isNaN(bonusNumber) || bonusNumber < LOTTO_NUMBER_RANGE.MIN || bonusNumber > LOTTO_NUMBER_RANGE.MAX) {
         throw new Error(Errors.INVALID_NUMBER);
     }
-    return new Promise<number>((resolve) => {
-        resolve(bonusNumber);
-    });
+    return bonusNumber;
 }
 
 const inputWinningLottoAndBonusNumber = async () : Promise<WinningLotto>=> {
     const winningLotto = await inputUntilSuccess(inputWinningLotto);
     const bonusNumber = await inputUntilSuccess(inputBonusNumber);
 
-    
-
-    return new Promise<WinningLotto>((resolve) => {
-        resolve(new WinningLotto(winningLotto, bonusNumber));
-    });
+    return new WinningLotto(winningLotto, bonusNumber);
 }
 
 
